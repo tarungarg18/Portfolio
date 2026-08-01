@@ -13,7 +13,6 @@ module.exports = async (req, res) => {
     res.status(200).json({
       rating,
       maxRating,
-      contests: rated.length,
     });
   } catch (err) {
     res.status(200).json({ error: true, message: err.message });

@@ -102,7 +102,6 @@
   loadStats('/api/atcoder', (d) => {
     setStat('ac-rating', d.rating);
     setStat('ac-max', d.maxRating);
-    setStat('ac-contests', d.contests);
   });
 
   loadStats('/api/gfg', (d) => {
