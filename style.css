@@ -332,7 +332,6 @@ h1, h2, h3, h4 { font-family: var(--font-head); }
 .platform-card.lc { border-top-color: #ffa116; }
 .platform-card.cc { border-top-color: #8b4513; }
 .platform-card.ac { border-top-color: #8e44ad; }
-.platform-card.gfg { border-top-color: #2f8d46; }
 
 .platform-head { display: flex; justify-content: space-between; align-items: center; }
 .platform-name { display: flex; align-items: center; gap: 9px; }

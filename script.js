@@ -104,8 +104,4 @@
     setStat('ac-max', d.maxRating);
   });
 
-  loadStats('/api/gfg', (d) => {
-    setStat('gfg-solved', d.solved);
-    setStat('gfg-active', d.activeDays);
-  });
 })();
