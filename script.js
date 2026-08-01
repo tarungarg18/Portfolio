@@ -106,6 +106,6 @@
 
   loadStats('/api/gfg', (d) => {
     setStat('gfg-solved', d.solved);
-    setStat('gfg-score', d.score);
+    setStat('gfg-active', d.activeDays);
   });
 })();

@@ -23,7 +23,7 @@ The Coding Profiles section is populated from `/api/*` serverless functions, cal
 | LeetCode | Unofficial GraphQL endpoint | Widely used, but not officially supported; could change without notice. |
 | CodeChef | HTML scrape of the profile page | Breaks if CodeChef changes their page markup. |
 | AtCoder | `/users/{handle}/history/json`, an unofficial but public endpoint AtCoder itself serves | Reasonably stable, not a documented API. |
-| GeeksforGeeks | HTML scrape — regex match on `"score"` / `"total_problems_solved"` embedded in the raw page | Most fragile of the five — GFG's frontend changes relatively often. |
+| GeeksforGeeks | Community API (`gfg-stats-api.vercel.app`) | GFG's own site blocks scraping from cloud IPs (including Vercel's) with a bot-protection challenge page, so a direct scraper worked locally but failed silently in production. Routes through a third-party API instead — no coding-score field available this way, so that stat was dropped in favor of "Active Days," which the API does provide. |
 
 Every function fails soft: on error it returns `{ error: true }` and `script.js` leaves the static fallback numbers already in `index.html` untouched, so a broken scraper degrades to stale-but-correct-looking data instead of a blank or broken card. When you update your rank/rating on a platform, remember to also bump the fallback text in `index.html` occasionally in case an endpoint goes down for good.
 
