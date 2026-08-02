@@ -414,6 +414,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); }
 .project-card p { color: var(--text-dim); font-size: 0.88rem; margin: 0; }
 
 .project-card { display: flex; flex-direction: column; gap: 10px; }
+.project-card p strong { color: var(--text); }
 .project-card .achv-label { margin-bottom: 2px; }
 .project-chips { gap: 6px; }
 .project-chips .chip { padding: 4px 11px; font-size: 0.76rem; }
