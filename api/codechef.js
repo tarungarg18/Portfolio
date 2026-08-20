@@ -22,8 +22,11 @@ module.exports = async (req, res) => {
 
     if (rating === null) throw new Error('Could not parse CodeChef profile');
 
+    const solvedMatch = html.match(/Problems Solved:\s*(\d+)/);
+    const solved = solvedMatch ? parseInt(solvedMatch[1], 10) : null;
+
     res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
-    res.status(200).json({ rating, stars, maxRating });
+    res.status(200).json({ rating, stars, maxRating, solved });
   } catch (err) {
     res.status(200).json({ error: true, message: err.message });
   }
