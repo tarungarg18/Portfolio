@@ -136,7 +136,7 @@
   // Typewriter role rotation
   const roleEl = document.getElementById('roleTyped');
   if (roleEl) {
-    const roles = ['Backend Engineer', 'Competitive Programmer', 'Full-Stack Developer', 'Building Scalable Systems'];
+    const roles = ['Competitive Programmer', 'Building Scalable Systems', '1100+ Problems Solved', 'IIT Guwahati'];
     let roleIndex = 0, charIndex = 0, deleting = false;
 
     function typeStep() {
