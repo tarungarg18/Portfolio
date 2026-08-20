@@ -162,8 +162,9 @@
     typeStep();
   }
 
-  // Animated stat counters (run once when hero scrolls into view)
-  const countEls = document.querySelectorAll('[data-count]');
+  // Animated stat counters — hero stats are above the fold, so animate
+  // immediately on load instead of waiting for a scroll-visibility
+  // threshold that a tall hero on a small screen might never cross.
   function animateCount(el) {
     const target = parseInt(el.getAttribute('data-count'), 10);
     const suffix = el.getAttribute('data-suffix') || '';
@@ -177,20 +178,7 @@
     }
     requestAnimationFrame(step);
   }
-  if (countEls.length) {
-    const countObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            countObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    countEls.forEach((el) => countObserver.observe(el));
-  }
+  document.querySelectorAll('[data-count]').forEach(animateCount);
 
   // Copy email button
   const copyBtn = document.getElementById('copyEmailBtn');
