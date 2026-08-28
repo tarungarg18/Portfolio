@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/Placement/Projects/Gamehub/**)",
+      "Read(//d/Placement/Projects/MathSage/**)",
+      "Read(//d/Placement/Projects/Smart-Traffic-Command-Center/**)",
+      "Read(//d/Placement/Projects/TextLite/**)",
+      "Read(//d/Placement/Projects/Resume/**)"
+    ]
+  }
+}
