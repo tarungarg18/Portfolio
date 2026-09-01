@@ -28,15 +28,21 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <a href="#home" class="logo">TC</a>
+    <a href="#home" class="brand" aria-label="Tara Chand — home">
+      <span class="logo">TC</span>
+      <span class="brand-copy">
+        <strong>Tara Chand</strong>
+        <small>Software · Data · ML</small>
+      </span>
+    </a>
     <nav>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#skills">Skills</a></li>
         <li><a href="#coding">Coding</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
         <li class="mobile-resume-links">
           <a href="/resumes/SDE_Tara_Chand.pdf" target="_blank" rel="noopener">SDE Resume</a>
@@ -70,19 +76,22 @@
         <h1>Engineering reliable software and <span class="grad-text">data-driven systems</span></h1>
         <p class="role"><span class="role-prefix">Focus areas:</span> <span id="roleTyped" class="role-typed"></span><span class="caret">|</span></p>
         <p class="hero-sub">B.Tech undergraduate at <strong>Indian Institute of Technology Guwahati</strong>, with full-stack development experience at <strong>Outsyde</strong> and project work spanning backend systems, data science, machine learning, and competitive programming.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="/resumes/SDE_Tara_Chand.pdf" target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
-            View SDE Resume
-          </a>
-          <a class="btn btn-ghost resume-cta" href="/resumes/DS_Tara_Chand.pdf" target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
-            View DS / ML Resume
-          </a>
-          <button class="btn btn-ghost" id="copyEmailBtn" type="button" data-email="t.chand@iitg.ac.in">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 8l8 6 8-6"/></svg>
-            <span class="copy-label" aria-live="polite">Copy Email</span>
-          </button>
+        <div class="hero-actions">
+          <span class="hero-actions-label">Choose a focused resume</span>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/resumes/SDE_Tara_Chand.pdf" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+              View SDE Resume
+            </a>
+            <a class="btn btn-ghost resume-cta" href="/resumes/DS_Tara_Chand.pdf" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+              View DS / ML Resume
+            </a>
+            <button class="btn btn-ghost" id="copyEmailBtn" type="button" data-email="t.chand@iitg.ac.in">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 8l8 6 8-6"/></svg>
+              <span class="copy-label" aria-live="polite">Copy Email</span>
+            </button>
+          </div>
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><span>Outsyde</span>Full-Stack Developer Intern</div>
@@ -154,7 +163,7 @@
     <p class="section-intro">Selected work in full-stack engineering, backend systems, data science, machine learning, and applied AI.</p>
     <div class="grid projects-grid">
 
-      <div class="card project-card">
+      <article class="card project-card project-card--wide track-sde">
         <div class="project-media gamehub-media">
           <img src="assets/projects/gamehub-2048.jpeg" alt="GameHub 2048 game" loading="lazy" />
           <img src="assets/projects/gamehub-ludo.jpeg" alt="GameHub Ludo game" loading="lazy" />
@@ -162,7 +171,10 @@
           <img src="assets/projects/gamehub-tap.jpeg" alt="GameHub Tap game" loading="lazy" />
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">SDE</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">SDE</span></div>
+            <span class="project-date">Mar 2026</span>
+          </div>
           <h3>GameHub</h3>
           <p>A multi-game platform built on a unified backend architecture, with JWT-based authentication and real-time multiplayer Ludo through Socket.IO.</p>
           <div class="chip-row project-chips">
@@ -176,14 +188,14 @@
             <summary>Engineering Highlights</summary>
             <div class="highlight-grid">
               <div class="highlight-row"><span class="h-tag">Architecture</span><span class="h-val">Shared game engine for reusable scoring and rules across 5+ games</span></div>
-              <div class="highlight-row"><span class="h-tag">Realtime</span><span class="h-val">Socket.IO multiplayer Ludo with turn and dice validation</span></div>
-              <div class="highlight-row"><span class="h-tag">Auth</span><span class="h-val">JWT + bcrypt with OTP email verification via Brevo</span></div>
+              <div class="highlight-row"><span class="h-tag">Real-time</span><span class="h-val">Socket.IO multiplayer Ludo with server-side turn and dice validation</span></div>
+              <div class="highlight-row"><span class="h-tag">Security</span><span class="h-val">JWT and bcrypt authentication with OTP email verification via Brevo</span></div>
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--wide track-hybrid">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Traffic prediction dashboard illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -213,7 +225,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">SDE</span><span class="project-tag">DS / ML</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">SDE</span><span class="project-tag">DS / ML</span></div>
+            <span class="project-date">May 2026</span>
+          </div>
           <h3>Smart Traffic Command Center</h3>
           <p>A traffic disruption command center that applies gradient-boosting models to incident prediction and severity analysis, achieving 0.989 ROC-AUC.</p>
           <div class="chip-row project-chips">
@@ -232,9 +247,9 @@
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--wide track-ai">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="ForgeMind document intelligence illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -262,7 +277,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">SDE</span><span class="project-tag">AI</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">SDE</span><span class="project-tag">AI</span></div>
+            <span class="project-date">Jul 2026</span>
+          </div>
           <h3>ForgeMind</h3>
           <p>An evidence-grounded document intelligence platform combining hybrid retrieval, source-linked answers, and unsupported-query refusal.</p>
           <div class="chip-row project-chips">
@@ -277,13 +295,13 @@
             <div class="highlight-grid">
               <div class="highlight-row"><span class="h-tag">Retrieval</span><span class="h-val">Hybrid keyword + semantic search for precise ranking</span></div>
               <div class="highlight-row"><span class="h-tag">Grounding</span><span class="h-val">Citations, temporal filtering, and refusal on weak evidence</span></div>
-              <div class="highlight-row"><span class="h-tag">Stack</span><span class="h-val">FastAPI + MongoDB + ChromaDB RAG pipeline</span></div>
+              <div class="highlight-row"><span class="h-tag">Architecture</span><span class="h-val">FastAPI, MongoDB, and ChromaDB retrieval pipeline</span></div>
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--wide track-sde">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="TextLite terminal editor illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -307,7 +325,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">SDE</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">SDE</span></div>
+            <span class="project-date">Jun – Jul 2026</span>
+          </div>
           <h3>TextLite</h3>
           <p>A terminal text editor written in C++17, using a singly linked list to support line creation, editing, search, and deletion.</p>
           <div class="chip-row project-chips">
@@ -325,9 +346,9 @@
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--compact track-ml">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Back2Color image colorization illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -351,7 +372,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+            <span class="project-date">Jul 2025</span>
+          </div>
           <h3>Back2Color</h3>
           <p>A deep-learning image colorization system that predicts chrominance in CIE Lab space while preserving source-image brightness.</p>
           <div class="chip-row project-chips">
@@ -366,13 +390,13 @@
             <div class="highlight-grid">
               <div class="highlight-row"><span class="h-tag">Model</span><span class="h-val">Encoder-decoder predicting a,b chrominance while retaining L</span></div>
               <div class="highlight-row"><span class="h-tag">Inference</span><span class="h-val">Zhang et al. colorizer via ONNX and OpenCV DNN</span></div>
-              <div class="highlight-row"><span class="h-tag">App</span><span class="h-val">Streamlit upload, samples, comparison, and JPEG download</span></div>
+              <div class="highlight-row"><span class="h-tag">Interface</span><span class="h-val">Streamlit upload, sample selection, comparison, and JPEG download</span></div>
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--compact track-ml">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Verity business intelligence illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -389,7 +413,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+            <span class="project-date">Mar – Apr 2026</span>
+          </div>
           <h3>Verity</h3>
           <p>A business intelligence system that detects material KPI changes, retrieves supporting evidence, and produces citation-checked explanations.</p>
           <div class="chip-row project-chips">
@@ -403,13 +430,13 @@
             <div class="highlight-grid">
               <div class="highlight-row"><span class="h-tag">Detection</span><span class="h-val">STL + Isolation Forest for anomaly detection on KPIs</span></div>
               <div class="highlight-row"><span class="h-tag">RAG</span><span class="h-val">Retrieves business documents by metric, region, and access</span></div>
-              <div class="highlight-row"><span class="h-tag">Guard</span><span class="h-val">Citation guard prevents unsupported numbers in LLM output</span></div>
+              <div class="highlight-row"><span class="h-tag">Validation</span><span class="h-val">Citation guard prevents unsupported numbers in generated explanations</span></div>
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
-      <div class="card project-card">
+      <article class="card project-card project-card--compact track-ml">
         <div class="project-media">
           <svg viewBox="0 0 400 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Hangman AI solver illustration">
             <rect x="0" y="0" width="400" height="220" fill="var(--bg-alt)" />
@@ -427,7 +454,10 @@
           </svg>
         </div>
         <div class="project-body">
-          <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+          <div class="project-meta">
+            <div class="project-tags"><span class="project-tag">DS / ML</span></div>
+            <span class="project-date">Aug 2026</span>
+          </div>
           <h3>Hangman-Solving AI</h3>
           <p>An automated Hangman agent that combines two Bidirectional LSTM models with information gain and letter-frequency signals.</p>
           <div class="chip-row project-chips">
@@ -440,13 +470,13 @@
           <details class="project-highlights">
             <summary>Engineering Highlights</summary>
             <div class="highlight-grid">
-              <div class="highlight-row"><span class="h-tag">Training</span><span class="h-val">Leak-free 97.5/2.5 split with fixed seeding and overlap checks</span></div>
-              <div class="highlight-row"><span class="h-tag">Policy</span><span class="h-val">Combines model probs with information gain and letter frequency</span></div>
+              <div class="highlight-row"><span class="h-tag">Training</span><span class="h-val">Leak-free 97.5% / 2.5% split with fixed seeding and overlap checks</span></div>
+              <div class="highlight-row"><span class="h-tag">Strategy</span><span class="h-val">Combines model probabilities with information gain and letter frequency</span></div>
               <div class="highlight-row"><span class="h-tag">Result</span><span class="h-val">56.2% win rate on 5,000 held-out words under a 6-try limit</span></div>
             </div>
           </details>
         </div>
-      </div>
+      </article>
 
     </div>
   </section>
@@ -495,82 +525,9 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills" class="section reveal">
-    <h2 class="section-title"><span>05.</span> Tech Stack</h2>
-
-    <div class="skills-block">
-      <h4>Languages</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="C"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="" onerror="this.style.display='none'" />C</span>
-        <span class="skill-cell" title="C++"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" onerror="this.style.display='none'" />C++</span>
-        <span class="skill-cell" title="Python"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" onerror="this.style.display='none'" />Python</span>
-        <span class="skill-cell" title="JavaScript"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" onerror="this.style.display='none'" />JavaScript</span>
-      </div>
-    </div>
-
-    <div class="skills-block">
-      <h4>Web &amp; Backend</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="React"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" onerror="this.style.display='none'" />React</span>
-        <span class="skill-cell" title="Next.js"><img src="https://cdn.simpleicons.org/nextdotjs/000000" alt="" onerror="this.style.display='none'" />Next.js</span>
-        <span class="skill-cell" title="Tailwind CSS"><img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="" onerror="this.style.display='none'" />Tailwind</span>
-        <span class="skill-cell" title="Node.js"><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="" onerror="this.style.display='none'" />Node.js</span>
-        <span class="skill-cell" title="Express"><img src="https://cdn.simpleicons.org/express/000000" alt="" onerror="this.style.display='none'" />Express</span>
-        <span class="skill-cell" title="REST APIs">REST APIs</span>
-        <span class="skill-cell" title="WebSockets"><img src="https://cdn.simpleicons.org/socketdotio/010101" alt="" onerror="this.style.display='none'" />WebSockets</span>
-      </div>
-    </div>
-
-    <div class="skills-block">
-      <h4>Databases</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="MySQL"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="" onerror="this.style.display='none'" />MySQL</span>
-        <span class="skill-cell" title="PostgreSQL"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" onerror="this.style.display='none'" />PostgreSQL</span>
-        <span class="skill-cell" title="MongoDB"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="" onerror="this.style.display='none'" />MongoDB</span>
-        <span class="skill-cell skill-elementary" title="Firebase — elementary proficiency"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" onerror="this.style.display='none'" />Firebase<small>Elementary</small></span>
-      </div>
-    </div>
-
-    <div class="skills-block">
-      <h4>Data &amp; ML</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="NumPy"><img src="https://cdn.simpleicons.org/numpy/013243" alt="" onerror="this.style.display='none'" />NumPy</span>
-        <span class="skill-cell" title="Pandas"><img src="https://cdn.simpleicons.org/pandas/150458" alt="" onerror="this.style.display='none'" />Pandas</span>
-        <span class="skill-cell" title="Matplotlib">Matplotlib</span>
-        <span class="skill-cell" title="Seaborn">Seaborn</span>
-        <span class="skill-cell" title="Scikit-learn"><img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="" onerror="this.style.display='none'" />Scikit-learn</span>
-        <span class="skill-cell" title="TensorFlow"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="" onerror="this.style.display='none'" />TensorFlow</span>
-        <span class="skill-cell" title="Keras"><img src="https://cdn.simpleicons.org/keras/D00000" alt="" onerror="this.style.display='none'" />Keras</span>
-        <span class="skill-cell skill-elementary" title="LangChain — elementary proficiency"><img src="https://cdn.simpleicons.org/langchain/1C3C3C" alt="" onerror="this.style.display='none'" />LangChain<small>Elementary</small></span>
-      </div>
-    </div>
-
-    <div class="skills-block">
-      <h4>CS Fundamentals</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="Object-Oriented Programming">OOP</span>
-        <span class="skill-cell" title="Database Management Systems">DBMS</span>
-        <span class="skill-cell" title="Operating Systems">Operating Systems</span>
-        <span class="skill-cell" title="Computer Networks">Computer Networks</span>
-      </div>
-    </div>
-
-    <div class="skills-block">
-      <h4>Tools</h4>
-      <div class="skills-grid">
-        <span class="skill-cell" title="Git"><img src="https://cdn.simpleicons.org/git/F05032" alt="" onerror="this.style.display='none'" />Git</span>
-        <span class="skill-cell" title="GitHub"><img src="https://cdn.simpleicons.org/github/000000" alt="" onerror="this.style.display='none'" />GitHub</span>
-        <span class="skill-cell skill-elementary" title="Postman — elementary proficiency"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="" onerror="this.style.display='none'" />Postman<small>Elementary</small></span>
-        <span class="skill-cell skill-elementary" title="MATLAB — elementary proficiency">MATLAB<small>Elementary</small></span>
-        <span class="skill-cell skill-elementary" title="LaTeX — elementary proficiency"><img src="https://cdn.simpleicons.org/latex/008080" alt="" onerror="this.style.display='none'" />LaTeX<small>Elementary</small></span>
-      </div>
-    </div>
-  </section>
-
   <!-- CODING PROFILES -->
   <section id="coding" class="section reveal">
-    <h2 class="section-title"><span>06.</span> Coding Profiles</h2>
+    <h2 class="section-title"><span>05.</span> Coding Profiles</h2>
     <p class="section-intro">Active on Codeforces, LeetCode, CodeChef, and AtCoder — focused on algorithms, data structures, and competitive problem solving.</p>
 
     <div class="grid coding-grid">
@@ -641,19 +598,71 @@
     </div>
   </section>
 
+  <!-- SKILLS -->
+  <section id="skills" class="section reveal">
+    <h2 class="section-title"><span>06.</span> Technical Skills</h2>
+    <p class="section-intro">A focused toolkit supported by the engineering and data projects presented above.</p>
+
+    <div class="skills-bento">
+      <article class="card skill-group">
+        <div class="skill-group-heading"><span>01</span><h3>Languages</h3></div>
+        <div class="skill-list">
+          <span>C</span><span>C++</span><span>Python</span><span>JavaScript</span>
+        </div>
+      </article>
+
+      <article class="card skill-group skill-group--wide">
+        <div class="skill-group-heading"><span>02</span><h3>Web &amp; Backend</h3></div>
+        <div class="skill-list">
+          <span>React</span><span>Next.js</span><span>Tailwind CSS</span><span>Node.js</span><span>Express</span><span>REST APIs</span><span>WebSockets</span>
+        </div>
+      </article>
+
+      <article class="card skill-group">
+        <div class="skill-group-heading"><span>03</span><h3>Databases</h3></div>
+        <div class="skill-list">
+          <span>MySQL</span><span>PostgreSQL</span><span>MongoDB</span><span class="skill-chip--elementary">Firebase <small>Elementary</small></span>
+        </div>
+      </article>
+
+      <article class="card skill-group skill-group--wide">
+        <div class="skill-group-heading"><span>04</span><h3>Data &amp; Machine Learning</h3></div>
+        <div class="skill-list">
+          <span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span><span>Scikit-learn</span><span>TensorFlow</span><span>Keras</span><span class="skill-chip--elementary">LangChain <small>Elementary</small></span>
+        </div>
+      </article>
+
+      <article class="card skill-group">
+        <div class="skill-group-heading"><span>05</span><h3>CS Fundamentals</h3></div>
+        <div class="skill-list">
+          <span>OOP</span><span>DBMS</span><span>Operating Systems</span><span>Computer Networks</span>
+        </div>
+      </article>
+
+      <article class="card skill-group">
+        <div class="skill-group-heading"><span>06</span><h3>Tools</h3></div>
+        <div class="skill-list">
+          <span>Git</span><span>GitHub</span><span class="skill-chip--elementary">Postman <small>Elementary</small></span><span class="skill-chip--elementary">MATLAB <small>Elementary</small></span><span class="skill-chip--elementary">LaTeX <small>Elementary</small></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact" class="section contact-section reveal">
-    <h2 class="section-title"><span>07.</span> Get In Touch</h2>
-    <p class="section-intro">I welcome opportunities in software engineering, full-stack development, data science, and machine learning.</p>
-    <div class="contact-links">
-      <a href="mailto:t.chand@iitg.ac.in" class="btn btn-primary">Email</a>
-      <a href="tel:+917056202923" class="btn btn-ghost">+91 7056202923</a>
-      <a href="https://www.linkedin.com/in/tara-chand-88127227b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
-      <a href="https://github.com/tarungarg18" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
-      <a href="/resumes/SDE_Tara_Chand.pdf" target="_blank" rel="noopener" class="btn btn-ghost">SDE Resume</a>
-      <a href="/resumes/DS_Tara_Chand.pdf" target="_blank" rel="noopener" class="btn btn-ghost">DS / ML Resume</a>
+    <div class="contact-panel">
+      <h2 class="section-title"><span>07.</span> Get In Touch</h2>
+      <p class="section-intro">I welcome opportunities in software engineering, full-stack development, data science, and machine learning.</p>
+      <div class="contact-links">
+        <a href="mailto:t.chand@iitg.ac.in" class="btn btn-primary">Email</a>
+        <a href="tel:+917056202923" class="btn btn-ghost">+91 7056202923</a>
+        <a href="https://www.linkedin.com/in/tara-chand-88127227b/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+        <a href="https://github.com/tarungarg18" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="/resumes/SDE_Tara_Chand.pdf" target="_blank" rel="noopener" class="btn btn-ghost">SDE Resume</a>
+        <a href="/resumes/DS_Tara_Chand.pdf" target="_blank" rel="noopener" class="btn btn-ghost">DS / ML Resume</a>
+      </div>
+      <p class="contact-secondary">Alternate email: <a href="mailto:tarachandgarg79@gmail.com">tarachandgarg79@gmail.com</a></p>
     </div>
-    <p class="contact-secondary">Alternate email: <a href="mailto:tarachandgarg79@gmail.com">tarachandgarg79@gmail.com</a></p>
   </section>
 
 </main>

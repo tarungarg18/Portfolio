@@ -1,5 +1,7 @@
 (function () {
   const root = document.documentElement;
+  root.classList.add('js');
+
   const themeToggle = document.getElementById('themeToggle');
   const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
   const storedTheme = localStorage.getItem('theme');
@@ -75,6 +77,41 @@
   );
   revealEls.forEach((el) => revealObserver.observe(el));
 
+  // Stagger cards and supporting content as they enter the viewport.
+  const revealItems = document.querySelectorAll(
+    '.card, .about-pillars li, .hero-stat'
+  );
+  const itemObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          itemObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+  revealItems.forEach((item, index) => {
+    item.classList.add('reveal-item');
+    item.style.setProperty('--reveal-order', String(index % 4));
+    itemObserver.observe(item);
+  });
+
+  // Ensure direct links to a section never land on content awaiting reveal.
+  if (window.location.hash) {
+    const initialSection = document.querySelector(window.location.hash);
+    if (initialSection) {
+      initialSection.classList.add('in-view');
+      initialSection.querySelectorAll('.reveal-item').forEach((item) => {
+        item.classList.add('in-view');
+      });
+      window.addEventListener('load', () => {
+        initialSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, { once: true });
+    }
+  }
+
   // Active nav link on scroll
   const sections = document.querySelectorAll('main section[id]');
   const navAnchors = document.querySelectorAll('.nav-links a');
@@ -92,8 +129,7 @@
   );
   sections.forEach((s) => navObserver.observe(s));
 
-  // Live coding-platform stats. Falls back silently to the static values
-  // already in the HTML if an endpoint errors or a platform changes its page.
+  // Live coding-platform stats use neutral placeholders if a source is unavailable.
   function setStat(key, value) {
     if (value === null || value === undefined) return;
     const el = document.querySelector(`[data-stat="${key}"]`);
@@ -198,6 +234,23 @@
     });
   });
 
+  // Subtle pointer-following light gives cards depth without heavy animation.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.card').forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const bounds = card.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+        card.style.setProperty('--pointer-x', `${x}%`);
+        card.style.setProperty('--pointer-y', `${y}%`);
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.setProperty('--pointer-x', '50%');
+        card.style.setProperty('--pointer-y', '50%');
+      });
+    });
+  }
+
   document.addEventListener('click', (event) => {
     if (navLinks.classList.contains('open') && !event.target.closest('.nav-inner')) {
       setNavigationOpen(false);
@@ -206,6 +259,10 @@
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setNavigationOpen(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) setNavigationOpen(false);
   });
 
   // Copy email button
