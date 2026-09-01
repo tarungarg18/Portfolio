@@ -143,6 +143,10 @@ h1, h2, h3, h4 { font-family: var(--font-head); }
 .nav-links a.active { color: var(--accent); }
 
 .nav-actions { display: flex; align-items: center; gap: 10px; }
+.nav-actions .resume-toggle {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+}
 .theme-toggle {
   background: none;
   border: 1px solid var(--border);
@@ -151,6 +155,49 @@ h1, h2, h3, h4 { font-family: var(--font-head); }
   cursor: pointer;
   font-size: 1rem;
   color: var(--text);
+}
+
+/* RESUME DROPDOWN */
+.resume-menu {
+  position: relative;
+  display: inline-flex;
+}
+.resume-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.resume-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px;
+  display: grid;
+  gap: 2px;
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.45);
+  z-index: 120;
+}
+.resume-dropdown[hidden] { display: none; }
+.resume-dropdown a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.resume-dropdown a:hover {
+  background: var(--bg-alt);
+  color: var(--accent);
+}
+.hero-cta .resume-menu .resume-dropdown,
+.contact-links .resume-menu .resume-dropdown {
+  left: 0;
+  right: auto;
 }
 .nav-burger {
   display: none;
@@ -380,9 +427,35 @@ button.btn.copied { border-color: var(--accent-2); color: var(--accent-2); }
   font-size: 1.05rem;
   line-height: 1.75;
   max-width: 720px;
-  margin: 0;
+  margin: 0 0 28px;
 }
 .about-short strong { color: var(--text); }
+
+.about-pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.about-pillars li {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+}
+.about-pillars h3 {
+  margin: 0 0 8px;
+  font-size: 0.98rem;
+  color: var(--text);
+}
+.about-pillars p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
 
 /* CARDS */
 .card {
@@ -471,7 +544,46 @@ button.btn.copied { border-color: var(--accent-2); color: var(--accent-2); }
 .grid { display: grid; gap: 20px; align-items: stretch; }
 .coding-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .achievements-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.projects-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+.projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.achv-link {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.achv-link:hover { text-decoration: underline; }
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer-tracks {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
 
 .platform-card {
   border-top: 3px solid var(--accent);
@@ -523,20 +635,6 @@ button.btn.copied { border-color: var(--accent-2); color: var(--accent-2); }
 .achievement-card.tier-gold { border-top-color: #d4a537; }
 .achievement-card.tier-silver { border-top-color: #8e44ad; }
 .achievement-card.tier-blue { border-top-color: var(--accent); }
-.medal-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  font-size: 1.3rem;
-  margin-bottom: 14px;
-}
-.tier-gold .medal-badge { background: color-mix(in srgb, #d4a537 18%, transparent); }
-.tier-silver .medal-badge { background: color-mix(in srgb, #8e44ad 16%, transparent); }
-.tier-blue .medal-badge { background: color-mix(in srgb, var(--accent) 16%, transparent); }
 .achv-label {
   display: inline-flex;
   align-items: center;
@@ -550,6 +648,8 @@ button.btn.copied { border-color: var(--accent-2); color: var(--accent-2); }
 }
 .achievement-card h3 { margin: 0 0 8px; font-size: 1.02rem; }
 .achievement-card p { color: var(--text-dim); font-size: 0.9rem; margin: 0; }
+.achievement-card p strong { color: var(--text); }
+.achievement-card .achv-label { margin-bottom: 10px; }
 
 .skills-block { margin-bottom: 26px; }
 .skills-block h4 {
@@ -761,4 +861,13 @@ button.btn.copied { border-color: var(--accent-2); color: var(--accent-2); }
 
   .about-grid { grid-template-columns: 1fr; gap: 28px; }
   .about-metrics { grid-template-columns: 1fr 1fr; }
+  .about-pillars { grid-template-columns: 1fr; }
+
+  .nav-actions .resume-menu .resume-dropdown {
+    right: 0;
+    left: auto;
+    max-width: min(220px, calc(100vw - 24px));
+  }
+
+  .projects-grid { grid-template-columns: 1fr; }
 }

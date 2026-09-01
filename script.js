@@ -81,62 +81,39 @@
     }
   }
 
-  // Total "Problems Solved" hero stat is the live sum of solved counts
-  // across all four platforms, once every platform has reported in.
-  const solvedByPlatform = { cf: null, lc: null, cc: null, ac: null };
-  function maybeUpdateSolvedTotal() {
-    const values = Object.values(solvedByPlatform);
-    if (values.some((v) => v === null)) return;
-    const total = values.reduce((sum, v) => sum + v, 0);
-    const heroTotalEl = document.querySelector('.hero-stat [data-count][data-suffix]');
-    if (!heroTotalEl) return;
-    const from = parseInt(heroTotalEl.textContent, 10) || 0;
-    const duration = 900;
-    const start = performance.now();
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      heroTotalEl.textContent = Math.round(from + (total - from) * eased) + '+';
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
   loadStats('/api/codeforces', (d) => {
     setStat('cf-rank', d.rank);
     setStat('cf-rating', d.rating);
     setStat('cf-max', d.maxRating);
-    if (typeof d.solved === 'number') solvedByPlatform.cf = d.solved;
-    maybeUpdateSolvedTotal();
   });
 
   loadStats('/api/leetcode', (d) => {
     setStat('lc-solved', d.solved);
     setStat('lc-rating', d.rating);
     setStat('lc-max', d.maxRating);
-    if (typeof d.solved === 'number') solvedByPlatform.lc = d.solved;
-    maybeUpdateSolvedTotal();
   });
 
   loadStats('/api/codechef', (d) => {
     setStat('cc-stars', d.stars);
     setStat('cc-rating', d.rating);
     setStat('cc-max', d.maxRating);
-    if (typeof d.solved === 'number') solvedByPlatform.cc = d.solved;
-    maybeUpdateSolvedTotal();
   });
 
   loadStats('/api/atcoder', (d) => {
     setStat('ac-rating', d.rating);
     setStat('ac-max', d.maxRating);
-    if (typeof d.solved === 'number') solvedByPlatform.ac = d.solved;
-    maybeUpdateSolvedTotal();
   });
 
   // Typewriter role rotation
   const roleEl = document.getElementById('roleTyped');
   if (roleEl) {
-    const roles = ['Competitive Programmer', 'Building Scalable Systems', '1100+ Problems Solved', 'IIT Guwahati'];
+    const roles = [
+      'Full-Stack Engineer',
+      'Software Developer',
+      'Competitive Programmer',
+      'ML / Data Science',
+      'IIT Guwahati',
+    ];
     let roleIndex = 0, charIndex = 0, deleting = false;
 
     function typeStep() {
@@ -162,23 +139,47 @@
     typeStep();
   }
 
-  // Animated stat counters — hero stats are above the fold, so animate
-  // immediately on load instead of waiting for a scroll-visibility
-  // threshold that a tall hero on a small screen might never cross.
-  function animateCount(el) {
-    const target = parseInt(el.getAttribute('data-count'), 10);
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1200;
-    const start = performance.now();
-    function step(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+  // Resume dropdowns
+  const resumeMenus = document.querySelectorAll('.resume-menu');
+
+  function closeAllResumeMenus(except) {
+    resumeMenus.forEach((menu) => {
+      if (menu === except) return;
+      const btn = menu.querySelector('.resume-toggle');
+      const panel = menu.querySelector('.resume-dropdown');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (panel) {
+        panel.hidden = true;
+        menu.classList.remove('open');
+      }
+    });
   }
-  document.querySelectorAll('[data-count]').forEach(animateCount);
+
+  resumeMenus.forEach((menu) => {
+    const btn = menu.querySelector('.resume-toggle');
+    const panel = menu.querySelector('.resume-dropdown');
+    if (!btn || !panel) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = panel.hidden;
+      closeAllResumeMenus();
+      if (willOpen) {
+        panel.hidden = false;
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeAllResumeMenus());
+    });
+  });
+
+  document.addEventListener('click', () => closeAllResumeMenus());
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllResumeMenus();
+  });
 
   // Copy email button
   const copyBtn = document.getElementById('copyEmailBtn');
@@ -198,7 +199,7 @@
       }
       copyBtn.classList.add('copied');
       const original = label.textContent;
-      label.textContent = 'Copied!';
+      label.textContent = 'Email copied ✓';
       setTimeout(() => {
         copyBtn.classList.remove('copied');
         label.textContent = original;
