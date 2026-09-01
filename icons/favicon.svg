@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="TC">
+  <defs>
+    <linearGradient id="background" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#background)"/>
+  <text x="24" y="30" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">TC</text>
+</svg>

@@ -1,34 +1,64 @@
 (function () {
   const root = document.documentElement;
-  const toggle = document.getElementById('themeToggle');
-  const stored = localStorage.getItem('theme');
-  if (stored) root.setAttribute('data-theme', stored);
+  const themeToggle = document.getElementById('themeToggle');
+  const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const storedTheme = localStorage.getItem('theme');
 
-  toggle.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  function applyTheme(theme, persist) {
+    root.setAttribute('data-theme', theme);
+    themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+    themeToggle.setAttribute('title', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+    if (persist) localStorage.setItem('theme', theme);
+  }
+
+  applyTheme(storedTheme || (colorScheme.matches ? 'dark' : 'light'), false);
+
+  themeToggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
+    applyTheme(next, true);
+  });
+
+  colorScheme.addEventListener('change', (event) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(event.matches ? 'dark' : 'light', false);
+    }
   });
 
   // Mobile menu
   const burger = document.getElementById('navBurger');
   const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  function setNavigationOpen(open) {
+    navLinks.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  }
+
+  burger.addEventListener('click', () => {
+    setNavigationOpen(!navLinks.classList.contains('open'));
+  });
   navLinks.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => navLinks.classList.remove('open'))
+    a.addEventListener('click', () => setNavigationOpen(false))
   );
 
   // Scroll progress bar
   const progress = document.getElementById('scrollProgress');
+  const backToTop = document.getElementById('backToTop');
+
   function updateProgress() {
     const scrollTop = window.scrollY;
     const height = document.documentElement.scrollHeight - window.innerHeight;
     progress.style.width = height > 0 ? `${(scrollTop / height) * 100}%` : '0%';
+    backToTop.classList.toggle('visible', scrollTop > 560);
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
+
+  backToTop.addEventListener('click', () => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+  });
 
   // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
@@ -67,39 +97,54 @@
   function setStat(key, value) {
     if (value === null || value === undefined) return;
     const el = document.querySelector(`[data-stat="${key}"]`);
-    if (el) el.textContent = value;
-  }
-
-  async function loadStats(url, onSuccess) {
-    try {
-      const r = await fetch(url);
-      const data = await r.json();
-      if (data.error) return;
-      onSuccess(data);
-    } catch (e) {
-      // network/parse failure — leave static fallback values in place
+    if (el) {
+      el.textContent = value;
+      el.classList.remove('stat-loading');
     }
   }
 
-  loadStats('/api/codeforces', (d) => {
+  function setPlatformStatus(platform, message, state) {
+    const card = document.querySelector(`[data-platform="${platform}"]`);
+    const status = document.querySelector(`[data-platform-status="${platform}"]`);
+    if (card) {
+      card.setAttribute('data-state', state);
+      card.querySelectorAll('.stat-loading').forEach((stat) => stat.classList.remove('stat-loading'));
+    }
+    if (status) status.textContent = message;
+  }
+
+  async function loadStats(url, platform, onSuccess) {
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('Request failed');
+      const data = await r.json();
+      if (data.error) throw new Error('Data unavailable');
+      onSuccess(data);
+      setPlatformStatus(platform, 'Live data', 'loaded');
+    } catch (e) {
+      setPlatformStatus(platform, 'Live data temporarily unavailable', 'error');
+    }
+  }
+
+  loadStats('/api/codeforces', 'cf', (d) => {
     setStat('cf-rank', d.rank);
     setStat('cf-rating', d.rating);
     setStat('cf-max', d.maxRating);
   });
 
-  loadStats('/api/leetcode', (d) => {
+  loadStats('/api/leetcode', 'lc', (d) => {
     setStat('lc-solved', d.solved);
     setStat('lc-rating', d.rating);
     setStat('lc-max', d.maxRating);
   });
 
-  loadStats('/api/codechef', (d) => {
+  loadStats('/api/codechef', 'cc', (d) => {
     setStat('cc-stars', d.stars);
     setStat('cc-rating', d.rating);
     setStat('cc-max', d.maxRating);
   });
 
-  loadStats('/api/atcoder', (d) => {
+  loadStats('/api/atcoder', 'ac', (d) => {
     setStat('ac-rating', d.rating);
     setStat('ac-max', d.maxRating);
   });
@@ -108,11 +153,10 @@
   const roleEl = document.getElementById('roleTyped');
   if (roleEl) {
     const roles = [
-      'Full-Stack Engineer',
-      'Software Developer',
+      'Software Engineering',
+      'Full-Stack Development',
+      'Data Science & Machine Learning',
       'Competitive Programmer',
-      'ML / Data Science',
-      'IIT Guwahati',
     ];
     let roleIndex = 0, charIndex = 0, deleting = false;
 
@@ -123,7 +167,7 @@
         roleEl.textContent = current.slice(0, charIndex);
         if (charIndex === current.length) {
           deleting = true;
-          setTimeout(typeStep, 1400);
+          setTimeout(typeStep, 1200);
           return;
         }
       } else {
@@ -134,51 +178,34 @@
           roleIndex = (roleIndex + 1) % roles.length;
         }
       }
-      setTimeout(typeStep, deleting ? 35 : 65);
+      setTimeout(typeStep, deleting ? 28 : 52);
     }
-    typeStep();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      roleEl.textContent = 'Software Engineering · Data Science · Machine Learning';
+    } else {
+      typeStep();
+    }
   }
 
-  // Resume dropdowns
-  const resumeMenus = document.querySelectorAll('.resume-menu');
-
-  function closeAllResumeMenus(except) {
-    resumeMenus.forEach((menu) => {
-      if (menu === except) return;
-      const btn = menu.querySelector('.resume-toggle');
-      const panel = menu.querySelector('.resume-dropdown');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-      if (panel) {
-        panel.hidden = true;
-        menu.classList.remove('open');
-      }
-    });
-  }
-
-  resumeMenus.forEach((menu) => {
-    const btn = menu.querySelector('.resume-toggle');
-    const panel = menu.querySelector('.resume-dropdown');
-    if (!btn || !panel) return;
-
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const willOpen = panel.hidden;
-      closeAllResumeMenus();
-      if (willOpen) {
-        panel.hidden = false;
-        menu.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-
-    panel.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => closeAllResumeMenus());
+  // Keep one technical-highlights panel open at a time.
+  const projectHighlights = document.querySelectorAll('.project-highlights');
+  projectHighlights.forEach((panel) => {
+    panel.addEventListener('toggle', () => {
+      if (!panel.open) return;
+      projectHighlights.forEach((otherPanel) => {
+        if (otherPanel !== panel) otherPanel.open = false;
+      });
     });
   });
 
-  document.addEventListener('click', () => closeAllResumeMenus());
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllResumeMenus();
+  document.addEventListener('click', (event) => {
+    if (navLinks.classList.contains('open') && !event.target.closest('.nav-inner')) {
+      setNavigationOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setNavigationOpen(false);
   });
 
   // Copy email button
@@ -199,7 +226,7 @@
       }
       copyBtn.classList.add('copied');
       const original = label.textContent;
-      label.textContent = 'Email copied ✓';
+      label.textContent = 'Email copied';
       setTimeout(() => {
         copyBtn.classList.remove('copied');
         label.textContent = original;
